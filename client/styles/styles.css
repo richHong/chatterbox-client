@@ -82,8 +82,16 @@ form input[type=text] {
 .spinner img {
     padding: 10px;
 }
+#rooms{
+    
+}
 #posts {
     border: 1px solid black;
     height: 500px;
     width: 500px;
+}
+.username{
+    background-color: gray;
+    margin: 10px;
+    padding: 10px;
 }
