@@ -104,11 +104,11 @@ describe('chatterbox', function() {
           roomname: 'lobby'
         });
 
-        app.init();
+        //app.init();
 
         $('#main').find('.username').trigger('click');
         expect(app.addFriend.called).to.be.true;
-
+        console.log(app.addFriend.called);
         app.addFriend.restore();
       });
 

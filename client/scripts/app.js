@@ -1,9 +1,8 @@
 var objectArr = [];
 var app = {
 
-  init: function(message){
-    //invoke the send method with the message sent in
-    app.send(message);
+  init: function(){
+    
     app.fetch()
     
   },
@@ -21,7 +20,7 @@ var app = {
       }
     });
   },
-  fetch: function(id){
+  fetch: function(){
     $.ajax({
       //reference server
       url: app.server,
@@ -34,6 +33,10 @@ var app = {
       },
       error: function(data){
         console.error('chatterbox: Failed to fetch message')
+      },
+      complete: function(data){
+        $('#chats').append(data);
+        console.log('data',data)
       }
     });
   },
@@ -45,7 +48,11 @@ var app = {
   },
 
   addMessage: function(message){
-    $('#chats').append('<div>'+message+'</div>');
+    var msg = $('<div class="username">'+ message.text +'</div>')
+    $('.username').on('click', function(){
+        app.addFriend(this);
+    })
+    $('#chats').append(msg);
   },
 
   addRoom: function(room){
@@ -53,23 +60,27 @@ var app = {
   },
 
   addFriend: function(friend){
-    console.log('I tried to')
     
   },
 
+  handleSubmit: function(){
+    var message = {
+    username: window.location.search.slice(10),
+    text: 'testing',
+    roomname: 'tga5'
+  }
+    app.send(message);
+
+  },
+
 };
-var message = {
-  username: 'anonymous',
-  text: 'testing',
-  roomname: 'tga5'
-};
-// app.init(message);
+
 
 $(document).ready(function(){
-
-    $('.username').on('click', function(){
-        app.addFriend(this);
-    })
+    $('#send .submit').submit(function(e){
+      app.handleSubmit();
+      e.preventDefault();
+    });
   
 })
 
